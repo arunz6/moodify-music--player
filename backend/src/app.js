@@ -2,8 +2,8 @@ import express from "express"
 import cookieParser from "cookie-parser";
 import authrouter from "./routes/auth.routes.js"
 import cors from "cors";
-
-
+import songroutes from "./routes/song.routes.js"
+import multer from "multer";
 
 
 
@@ -16,6 +16,7 @@ app.use(cors({
 }))
 
 app.use("/api/auth", authrouter);
+app.use("/api/songs", songroutes);
 
 
 
