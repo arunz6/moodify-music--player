@@ -7,5 +7,7 @@ const songroutes = new Router();
 // /api/songs/
 songroutes.post("/",upload.single("song"),songcontroller.uplodesong)
 
+songroutes.get('/', songcontroller.getSong)
+
 
 export default songroutes;

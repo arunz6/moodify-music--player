@@ -1,23 +1,18 @@
-import fs from 'fs';
-import ImageKit, { toFile } from '@imagekit/nodejs';
+import ImageKit from "@imagekit/nodejs";
 import config from "../config/config.js";
 
-
 const client = new ImageKit({
- 
-  privateKey: config.privateKey ,
+  privateKey: config.privateKey,
+});
 
-}); 
-
-
-async function uplodefile({buffer,filename}){
-  file:await client.file.upload({
-    file: buffer,
+async function uploadFile({ buffer, filename, folder = "" }) {
+  const file = await client.files.upload({
+    file: await ImageKit.toFile(Buffer.from(buffer)),
     fileName: filename,
-  })
+    folder,
+  });
+
   return file;
-} 
+}
 
-
-
-export default {uplodefile};
+export default { uploadFile };
