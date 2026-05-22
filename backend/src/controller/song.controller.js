@@ -3,12 +3,12 @@ import id3 from "node-id3";
 import storageService from "../services/storage.service.js";
 
 async function uplodesong(req, res) {
-  const filebuffer = req.file.buffer;
-  const { mood } = req.body;
+    const filebuffer = req.file.buffer;
+    const { mood } = req.body;
 
-  const tags = id3.read(filebuffer);
+    const tags = id3.read(filebuffer);
 
-   const [ songFile, posterFile ] = await Promise.all([
+    const [songFile, posterFile] = await Promise.all([
         storageService.uploadFile({
             buffer: filebuffer,
             filename: tags.title + ".mp3",
@@ -21,17 +21,17 @@ async function uplodesong(req, res) {
         })
     ])
 
-  
-  const song = await songModel.create({
-    title: tags.title,
-    url: songFile.url,
-    posterurl: posterFile.url,
-    mood,
-  });
-  res.status(201).json({
-    message: "song uploded successfully",
-    song: song,
-  });
+
+    const song = await songModel.create({
+        title: tags.title,
+        url: songFile.url,
+        posterurl: posterFile.url,
+        mood,
+    });
+    res.status(201).json({
+        message: "song uploded successfully",
+        song: song,
+    });
 }
 
 
@@ -51,4 +51,4 @@ async function getSong(req, res) {
     })
 
 }
-export default { uplodesong , getSong};
+export default { uplodesong, getSong };
